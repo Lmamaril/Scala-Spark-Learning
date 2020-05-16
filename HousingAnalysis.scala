@@ -13,8 +13,10 @@ object Analysis {
     val description = "Housing Analysis"
     print(description)
 
-    val houses = sc.parallelize(Array("house 1","house 2","house 3"))
-    houses.foreach(println)
+    val rdd = sc.textFile("home_data.csv")
+    rdd.foreach(f=>{
+      println(f)
+    })
 
   }
 }
