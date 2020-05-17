@@ -1,31 +1,41 @@
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
 
 object Analysis {
 
   def main(args: Array[String]): Unit = {
 
-    val conf = new SparkConf().
-      setMaster("local").
-      setAppName("HousingAnalysis")
-    val sc = new SparkContext(conf)
-    sc.setLogLevel("ERROR")
+    val spark = SparkSession.builder()
+      .master("local")
+      .master("local")
+      .appName("HousingAnalysis")
+      .enableHiveSupport()
+      .getOrCreate()
 
-    val description = "Housing Analysis"
-    print(description)
-
-    val nums = sc.parallelize(Array(1,2,3,4,5,6,7,8,9,10))
-    nums.foreach(println)
-
-    val rdd = sc.textFile("home_data.csv")
-    val words = rdd.flatMap(line => line.split(","))
-    val wordCount = words.map(word => (word,1)).reduceByKey(_ + _)
-    wordCount.foreach(println)
-    sc.stop()
+    case class homeSchema (id: String,
+                         date: String,
+                         price: Int, bedrooms: String,
+                         bathrooms: String,
+                         sqft_living: Int,
+                         sqft_lot: Int,
+                         floors: String,
+                         waterfront: Boolean,
+                         view: Boolean,
+                         condition: Int,
+                         grade: Int,
+                         sqft_above: Int,
+                         sqft_basement: Int,
+                         yr_built: Int,
+                         yr_renovated: Int,
+                         zipcode: String,
+                         latitude: Double,
+                         longitude: Double,
+                         sqft_living15: Int,
+                         sqft_lot15: Int)
     
-//    // read the full file
-//    rdd.foreach(f=>{
-//      println(f)
-//    })
+
+    print("Housing Analysis")
+    val df = spark.read.options(Map("inferSchema"->"true","delimiter"->",", "header"-> "true")).csv("home_data.csv")
+    df.printSchema()
 
     print("How many houses were built before 1979?")
     print("What is the most expensive zipcode in the dataset?")
