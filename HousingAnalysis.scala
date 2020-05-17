@@ -19,11 +19,13 @@ object Analysis {
 
     val homesPre1979 = df.filter(df("yr_built") < 1979)
     println("Count of houses build before 1979: ", homesPre1979.count())
-
+    // (Count of houses build before 1979: ,11991) 
+    
     println("What is the most expensive zipcode in the dataset?")
 
     val priciest_zipcode = df.groupBy("zipcode").mean("price").orderBy(org.apache.spark.sql.functions.col("avg(price)").desc).take(1)
     priciest_zipcode.foreach(println)
+    // [98039,2160606.6]
   }
 }
 
