@@ -1,5 +1,5 @@
-##Housing Analysis##:house_with_garden:
-#Based on a dataset provide of the Seattle Neighborhood Area
+#Housing Analysis :house_with_garden:
+##Based on a dataset provide of the Seattle Neighborhood Area
 
 **An assignment to do a brief analysis on housing data**
 
