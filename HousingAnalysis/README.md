@@ -6,3 +6,5 @@
 *Questions Include:*
 * How many houses were built before 1979?
 * What is the most expensive area by zipcode in the dataset?
+
+![Tableau Screenshot](housing-tableau.png)
